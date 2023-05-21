@@ -1,11 +1,13 @@
 #pragma once
 #include<iostream>
+#include"Button.h"
 using namespace std;
 void welcome()
 {
-	cout << "Welcome to Omen Bank\n";
-	cout << "Click to continue :\n";
-	cout << "1) To open new account        2) To open existing account\n";
+	unordered_map<string, account_credentials>directory;
+	cout << "Welcome to Omen Bank" << endl;
+	cout << "Click to continue :" << endl;
+	cout << "1) To open new account        2) To open existing account" << endl;
 	bool a = true;
 	while(a)
 	{
@@ -13,14 +15,14 @@ void welcome()
 		cin >> n;
 		switch (n)
 		{
-		case 1:acc_register();
+		case 1:acc_register(directory);
 			a = !a;
 			break;
 		case 2:acc_exists();
 			a = !a;
 			break;
 		default:
-			cout << "Enter specified numbers\n";
+			cout << "Enter specified numbers" << endl;
 		}
 	}
 	
