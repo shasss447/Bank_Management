@@ -130,7 +130,8 @@
     <ClCompile Include="Bank_Management.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Button.h" />
+    <ClInclude Include="Account.h" />
+    <ClInclude Include="Data.h" />
     <ClInclude Include="Welcome.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
