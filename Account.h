@@ -24,6 +24,7 @@ void acc_register(unordered_map<string,account_credentials>&directory)
 	int age;
 	long long phone_num;
 	string password;
+	double balance = 0.00;
 	cout << "Enter your name"<<endl;
 	cin >> name;
 
@@ -55,13 +56,26 @@ void acc_register(unordered_map<string,account_credentials>&directory)
 	account.password = password;
 	string account_number = hash_function(name, phone_num);  // hash function to create a unique account number
 	directory[account_number] = account;
-	data_register(directory,account_file);
+	data_register(directory,account_number,account_file);
 	return;
 }
 
     // account registration function ends
 
    // login function starts
+
+void acc_exists(unordered_map<string, account_credentials>& directory)
+{
+	system("cls");
+	string accno;
+	string pass;
+	cout << "Enter account number" << endl;
+	cin >> accno;
+	cout << "Enter password" << endl;
+	cin >> pass;
+	data_retrieval(directory, accno, pass);
+	return;
+}
 
    // login function ends
 
@@ -91,14 +105,4 @@ string hash_function(string name, long long pn)  // hash function to create a un
     return name.substr(0, 2) + "00XX" + p.substr(7, 3);
 }
 
-void acc_exists(unordered_map<string, account_credentials>& directory)
-{
-	system("cls");
-	string accno;
-	string pass;
-	cout << "Enter account number" << endl;
-	cin >> accno;
-	cout << "Enter password" << endl;
-	cin >> pass;
-	data_retrieval(directory, accno, pass);
-}
+

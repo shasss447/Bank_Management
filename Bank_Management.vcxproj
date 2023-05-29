@@ -131,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Account.h" />
+    <ClInclude Include="Accout_Balance.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="Welcome.h" />
   </ItemGroup>
