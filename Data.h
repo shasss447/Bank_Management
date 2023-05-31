@@ -38,9 +38,6 @@ void data_register(unordered_map<string, account_credentials>& directory,string 
 		else
 			outputFile << directory[acc_no].balance << endl;
 		outputFile.close();
-		std::cout << "Press Enter to continue...";
-		std::cin.ignore();
-		std::cin.get();
 	}
 	else
 		cout << "Failed to open the file for saving account data."<<endl;
@@ -72,18 +69,51 @@ void data_retrieval(unordered_map<string, account_credentials>& directory, strin
 					cout << "Account Found!!" << endl;
 					cout <<"Your name-"<< tokens[1] << "\n" <<"Your age-"<< tokens[2] << "\n" <<"Your phone number-"<< tokens[4] << "\n" <<"Your balance-"<< tokens[5] << endl;
 					cout << "Do you want to deposit or withdraw money from your account" << endl;
-					cout << "Press 1 for deposit    2 for withdrawal    3 for exit" << endl;
+					cout << "Press 1 for deposit    2 for withdrawal    3 for transfer to another account    4 for exit" << endl;
 					cin >> a;
 					if (a == 1)
 					{
-						add_balance(directory, acc);
+						double amount;
+						cout << "Enter amount to deposit" << endl;
+						cin >> amount;
+						add_balance(directory, acc,amount);
+						cout << "Your updated balance is-" << " " << directory[acc].balance << endl;
 					}
 					else if (a == 2)
 					{
-						subtract_balance(directory, acc);
+						double amount;
+						cout << "Enter amount to withdraw" << endl;
+						cin >> amount;
+						while (amount > directory[acc].balance)
+						{
+							cout << "Entered amount is greater than account balance" << endl;
+							cout << "Enter amount to withdraw" << endl;
+							cin >> amount;
+						}
+						subtract_balance(directory, acc,amount);
+						cout << "Your updated balance is-" << " " << directory[acc].balance << endl;
+					}
+					else if (a == 3)
+					{
+						cout << "Enter account number of the account to which money is to be transferred" << endl;
+						string acc2;
+						cin >> acc2;
+						if (directory.find(acc2) != directory.end())
+						{
+							double amount;
+							cout << "Enter amount to be transferred" << endl;
+							cin >> amount;
+							while (amount > directory[acc].balance)
+							{
+								cout << "Entered amount is greater than account balance" << endl;
+								cout << "Enter amount to withdraw" << endl;
+								cin >> amount;
+							}
+							another_balance(directory, acc,acc2,amount);
+							cout << "Your updated balance is-" << " " << directory[acc].balance << endl;
+						}
 					}
 					inputFile.close();
-
 					return;
 				}
 

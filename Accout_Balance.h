@@ -14,46 +14,34 @@ struct account_credentials  // structure of a account
 	double balance = 0.00;
 };
 
-void new_balance(unordered_map<string, account_credentials>& directory, double upbal, string acc);
+void new_balance(unordered_map<string, account_credentials>& directory, double& upbal, string& acc);
 
-void add_balance(unordered_map<string, account_credentials>& directory, string acc)
+void add_balance(unordered_map<string, account_credentials>& directory, string& acc,double& amount)
 {
-	int amount;
-	cout << "Enter amount to deposit" << endl;
-	cin >> amount;
+	
 	directory[acc].balance = directory[acc].balance + amount;
 	new_balance(directory, directory[acc].balance, acc);
-	cout << "Your updated balance is-" << " " << directory[acc].balance << endl;
-	std::cout << "Press Enter to continue...";
-	std::cin.ignore(); // Clear input buffer
-	std::cin.get();
+	return;
 }
 
-void subtract_balance(unordered_map<string, account_credentials>& directory, string acc)
+void subtract_balance(unordered_map<string, account_credentials>& directory, string& acc,double& amount)
+{	
+	directory[acc].balance = directory[acc].balance - amount;
+	new_balance(directory, directory[acc].balance, acc);
+	return;
+}
+
+void another_balance(unordered_map<string, account_credentials>& directory, string& acc,string& acc2,double& amount)
 {
-	int amount;
-	cout << "Enter amount to withdraw" << endl;
-	cin >> amount;
-	if (amount <= directory[acc].balance)
-	{
-		directory[acc].balance = directory[acc].balance - amount;
-		new_balance(directory, directory[acc].balance, acc);
-		cout << "Your updated balance is-" << " " << directory[acc].balance << endl;
-		std::cout << "Press Enter to continue...";
-		std::cin.ignore(); // Clear input buffer
-		std::cin.get();
-	}
-	else
-	{
-		cout << "Entered amount is greater than account balance" << endl;
-		subtract_balance(directory, acc);
-	}
-		
+		subtract_balance(directory, acc,amount);
+		add_balance(directory, acc2, amount);
+		return;
+	
 }
 
 
 
-void new_balance(unordered_map<string, account_credentials>& directory, double upbal, string acc)
+void new_balance(unordered_map<string, account_credentials>& directory, double& upbal, string& acc)
 {
 	fstream file;
 	file.open(account_file, ios::in | ios::out);
@@ -91,4 +79,5 @@ void new_balance(unordered_map<string, account_credentials>& directory, double u
 			file.close();
 		}
 	}
+	return;
 }

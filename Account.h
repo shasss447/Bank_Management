@@ -56,6 +56,9 @@ void acc_register(unordered_map<string,account_credentials>&directory)
 	string account_number = hash_function(name, phone_num);  // hash function to create a unique account number
 	directory[account_number] = account;
 	data_register(directory,account_number,account_file);
+	std::cout << "Press Enter to continue...";
+	std::cin.ignore();
+	std::cin.get();
 	return;
 }
 
@@ -73,6 +76,9 @@ void acc_exists(unordered_map<string, account_credentials>& directory)
 	cout << "Enter password" << endl;
 	cin >> pass;
 	data_retrieval(directory, accno, pass);
+	std::cout << "Press Enter to continue...";
+	std::cin.ignore();
+	std::cin.get();
 	return;
 }
 
