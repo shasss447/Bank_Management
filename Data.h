@@ -8,19 +8,16 @@
 #include<vector>
 #include"Accout_Balance.h"
 using namespace std;
-const string account_file="account_file.txt";
-struct account_credentials  // structure of a account
-{
-	string name;
-	int age;
-	long long phone_num;
-	string password;
-	double balance=0.00;
-};
+
+
+
+
+
+
 
 void data_register(unordered_map<string, account_credentials>& directory,string acc_no, const string &account_file)
 {
-	bool a;
+	int a;
 	fstream outputFile;
 	outputFile.open(account_file,ios::app);
 	if (outputFile.is_open())
@@ -31,14 +28,19 @@ void data_register(unordered_map<string, account_credentials>& directory,string 
 		cout << "Do you want to deposite some money in your new accout" << endl;
 		cout << "Press 1 for yes and 2 for no" << endl;
 		cin >> a;
-		if (a)
+		if (a==1)
 		{
-			cout << "How much amount you want to transfer" << endl;
+			cout << "How much amount you want to deposit" << endl;
 			cin >> directory[acc_no].balance;
 			outputFile << directory[acc_no].balance << endl;
 			cout << directory[acc_no].balance << " " << "deposited to your account" << endl;	
 		}
+		else
+			outputFile << directory[acc_no].balance << endl;
 		outputFile.close();
+		std::cout << "Press Enter to continue...";
+		std::cin.ignore();
+		std::cin.get();
 	}
 	else
 		cout << "Failed to open the file for saving account data."<<endl;
@@ -48,7 +50,7 @@ void data_retrieval(unordered_map<string, account_credentials>& directory, strin
 {
 	int a;
 	fstream inputFile;
-	inputFile.open(account_file, ios::in);
+	inputFile.open(account_file, ios::in|ios::out);
 	if (inputFile.is_open())
 	{
 		string line;
@@ -74,22 +76,14 @@ void data_retrieval(unordered_map<string, account_credentials>& directory, strin
 					cin >> a;
 					if (a == 1)
 					{
-						int amount;
-						cout << "Enter amount to deposit" << endl;
-						cin >> amount;
-						directory[acc].balance = directory[acc].balance + amount;
-
-						cout << "Your updated balance is-" << " " << directory[acc].balance << endl;
+						add_balance(directory, acc);
 					}
 					else if (a == 2)
 					{
-						int amount;
-						cout << "Enter amount to withdraw" << endl;
-						cin >> amount;
-						directory[acc].balance = directory[acc].balance - amount;
-						cout << "Your updated balance is-" << " " << directory[acc].balance << endl;
+						subtract_balance(directory, acc);
 					}
-					cout << "Thank You!!" << endl;
+					inputFile.close();
+
 					return;
 				}
 
@@ -100,6 +94,3 @@ void data_retrieval(unordered_map<string, account_credentials>& directory, strin
 		return;
 	}
 }
-
-
-void return_vec()

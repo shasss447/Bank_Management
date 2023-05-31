@@ -27,7 +27,6 @@ void acc_register(unordered_map<string,account_credentials>&directory)
 	double balance = 0.00;
 	cout << "Enter your name"<<endl;
 	cin >> name;
-
 	cout << "Enter your age"<<endl;
 	while(1)
 	{	

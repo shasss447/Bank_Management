@@ -5,9 +5,8 @@ using namespace std;
 
 
 
-void welcome()
+void welcome(unordered_map<string, account_credentials>&directory)
 {
-	unordered_map<string, account_credentials>directory;
 	cout << "________________________" << endl;
 	cout << "  Welcome to Omen Bank" << endl;
 	cout << "  Click to continue :" << endl;
@@ -19,15 +18,25 @@ void welcome()
 		cin >> n;
 		switch (n)
 		{
-		case 1:acc_register(directory);
-			a = !a;
+		case 1:
+		{
+			acc_register(directory);
+			a = false;
 			break;
-		case 2:acc_exists(directory);
-			a = !a;
+		}
+		case 2:
+		{
+			acc_exists(directory);
+			a = false;
 			break;
+		}
 		default:
+		{
 			cout << "Enter specified numbers" << endl;
+			break;
+		}
 		}
 	}
-	return;
+	system("cls");
+	welcome(directory);
 }
