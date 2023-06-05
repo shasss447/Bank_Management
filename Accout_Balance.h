@@ -16,12 +16,11 @@ struct account_credentials  // structure of a account
 
 void new_balance(unordered_map<string, account_credentials>& directory, double& upbal, string& acc);
 
-void add_balance(unordered_map<string, account_credentials>& directory, string& acc,double& amount)
+void add_balance(unordered_map<string, account_credentials>& directory, string& acc,double& amount)  
 {
 	
 	directory[acc].balance = directory[acc].balance + amount;
-	new_balance(directory, directory[acc].balance, acc);
-	return;
+	new_balance(directory, directory[acc].balance, acc);     
 }
 
 void subtract_balance(unordered_map<string, account_credentials>& directory, string& acc,double& amount)
@@ -46,20 +45,23 @@ void new_balance(unordered_map<string, account_credentials>& directory, double& 
 	fstream file;
 	file.open(account_file, ios::in | ios::out);
 
-	if (file.is_open()) {
+	if (file.is_open()) 
+	{
 		vector<string> lines;
 		string line;
-		while (getline(file, line)) {
+
+		while (getline(file, line)) 
+		{
 			lines.push_back(line);
 		}
 
-		// Find and update the desired entry
 		for (auto& entry : lines) {
 			stringstream ss(entry);
 			string acc_no_str;
 			getline(ss, acc_no_str, ',');
-			if (acc_no_str == acc) {
-				// Update the balance
+
+			if (acc_no_str == acc) 
+			{
 				stringstream temp_ss;
 				temp_ss << acc << "," << directory[acc].name << "," << directory[acc].age
 					<< "," << directory[acc].password << "," << directory[acc].phone_num
@@ -71,7 +73,8 @@ void new_balance(unordered_map<string, account_credentials>& directory, double& 
 
 		file.close();
 
-		file.open(account_file, ios::out);
+
+		file.open(account_file, ios::out);  // replacing the data with updated balance
 		if (file.is_open()) {
 			for (const auto& entry : lines) {
 				file << entry << endl;

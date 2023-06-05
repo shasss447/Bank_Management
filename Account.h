@@ -1,8 +1,4 @@
 #pragma once
-#include<iostream>
-#include<string>
-#include<unordered_map>
-#include<cmath>
 #include"Data.h"
 
 
@@ -28,6 +24,7 @@ void acc_register(unordered_map<string,account_credentials>&directory)
 	cout << "Enter your name"<<endl;
 	cin >> name;
 	cout << "Enter your age"<<endl;
+
 	while(1)
 	{	
 	  cin >> age;
@@ -37,6 +34,7 @@ void acc_register(unordered_map<string,account_credentials>&directory)
 	}
 
 	cout << "Enter your phone number"<<endl;
+
 	while (1)
 	{
 	  cin >> phone_num;
@@ -48,23 +46,24 @@ void acc_register(unordered_map<string,account_credentials>&directory)
 	cout << "Create a password" << endl;
 	cin >> password;
 
-	account_credentials account;  // creating struct object
+	account_credentials account;  // creating object of "account_credentials" struct
 	account.name = name;
 	account.age = age;
 	account.phone_num = phone_num;
 	account.password = password;
 	string account_number = hash_function(name, phone_num);  // hash function to create a unique account number
-	directory[account_number] = account;
-	data_register(directory,account_number,account_file);
-	std::cout << "Press Enter to continue...";
-	std::cin.ignore();
-	std::cin.get();
+	directory[account_number] = account;                     // pushing credentials into the unordered map
+	data_register(directory,account_number,account_file);    // calling function to add the registered account in the txt file
+	cout << "Press Enter to continue...";
+	cin.ignore();
+	cin.get();
 	return;
 }
 
-    // account registration function ends
+// account registration function ends
 
-   // login function starts
+
+// login function starts
 
 void acc_exists(unordered_map<string, account_credentials>& directory)
 {
@@ -75,17 +74,17 @@ void acc_exists(unordered_map<string, account_credentials>& directory)
 	cin >> accno;
 	cout << "Enter password" << endl;
 	cin >> pass;
-	data_retrieval(directory, accno, pass);
-	std::cout << "Press Enter to continue...";
-	std::cin.ignore();
-	std::cin.get();
+	data_retrieval(directory, accno, pass);  // calling function to check whether the account exists or not
+	cout << "Press Enter to continue...";
+	cin.ignore();
+	cin.get();
 	return;
 }
 
-   // login function ends
+// login function ends
 
 
-  // helper functions
+// helper functions
 
 bool valid_age(int n)  // to verify if age is above 18 or not
 {
